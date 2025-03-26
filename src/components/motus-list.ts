@@ -1,5 +1,6 @@
 import  Motus  from "../model/motus";
 import MotusService from "../services/motus-service";
+import MotusCard from "./motus-card";
 
 
 export default class MotusList extends HTMLElement {
@@ -25,8 +26,14 @@ export default class MotusList extends HTMLElement {
         style.innerText = `
             .grid{
                 display: grid;
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(300px)); 
                 gap: 16px;
+            }
+            .add-btn{
+            position:absolute;
+            bottom: 40px;
+            right: 
+
             }
         `
         this.shadowRoot!.appendChild(style);
@@ -50,15 +57,21 @@ export default class MotusList extends HTMLElement {
     
         for (let i = 0; i  < this.moti.length; i++) {
             const motus  = this.moti[i];
-            const card = document.createElement('h3');
-            card.innerText = motus.note;
+            const card:  MotusCard = document.createElement('motus-card') as MotusCard;
+            card.setAttribute("selected-motus", JSON.stringify(motus));
+
+            
 
             main.appendChild(card)
         }
 
         container.appendChild(main)
 
-        
+        const addBtn = document.createElement("button");
+        addBtn.classList.add("add-btn");
+        addBtn.appendChild(document.createTextNode("➕"));
+        addBtn.addEventListener('click', () => this.addRandomMotus())
+        container.appendChild(addBtn);
     }
 
     
