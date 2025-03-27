@@ -6,7 +6,7 @@ export default interface Motus {
     value: number
     note: string
     creationDate: number
-    location: Location
+    location?: Location     //metto il ? per non avere obbligatorieta nella creazione dei nuovi motus
   }
   
  

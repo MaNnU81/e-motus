@@ -142,8 +142,9 @@ export default class MotusList extends HTMLElement {
     openDialog() {
         const dialog = document.createElement('super-dialog') as SuperDialog;
     
-        dialog.addEventListener('student-added', (event: CustomEvent) => {
-            const newMoti = event.detail;
+        dialog.addEventListener('student-added', (event: Event) => {
+            const customEvent = event as CustomEvent;
+            const newMoti = customEvent.detail;
             this.moti.push(newMoti);
             localStorage.setItem('moti', JSON.stringify(this.moti));
             this.render();

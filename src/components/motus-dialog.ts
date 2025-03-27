@@ -41,18 +41,26 @@ export default class SuperDialog extends HTMLElement{
     }
 
     render(){
-
+        
         this.dialog = document.createElement('dialog');
         this.dialog.setAttribute('id', 'dialog');
 
         
         this.dialog.innerHTML = `
-        <form id="form">
-            <label for="emoticon">Emoticon:</label>
-            <input type="text" name="emoticon" id="emoticon">
-            <label for="note">Note:</label>
-            <input type="text" name="note" id="note">
-        </form>
+       <form id="motus-form" > 
+                <label for="crying">😭</label>
+                <input type="radio" name="motus" id="crying" value"0">  
+                <label for="sad">😥</label>
+                <input type="radio" name="motus" id="sad" value"1">
+                <label for="neutral">😐</label>
+                <input type="radio" name="motus" id="neutral" value"2">
+                <label for="happy">🙂</label>
+                <input type="radio" name="motus" id="happy" value"3">
+                <label for="euphoric">😁</label>
+                <input type="radio" name="motus" id="euphoric" value"4">
+                <label for="note">Come ti senti?</label>
+                <textarea name="note" id="note"></textarea>
+            </form>
         `
         const cancelBtn = document.createElement('button');
         cancelBtn.appendChild(document.createTextNode('cancella'));
@@ -68,11 +76,8 @@ export default class SuperDialog extends HTMLElement{
     }
 
     dispatchMoti(){
-        const form = this.shadowRoot!.getElementById('form') as HTMLFormElement | null;
-        if (!form) {
-            console.error('Il modulo non è stato trovato.');
-            return;
-        }
+        const form = this.shadowRoot!.getElementById('motus-form') as HTMLFormElement | null;
+      
         const data = new FormData(form);
         const moti = {
             emoticon: data.get('emoticon'),
@@ -87,7 +92,7 @@ export default class SuperDialog extends HTMLElement{
             this.dispatchEvent(event);
         }
 
-        this.dialog.close();
+        
     }
 
     setupForm(moti: { value: any; note: any; } | undefined) {
@@ -98,7 +103,7 @@ export default class SuperDialog extends HTMLElement{
             return;
         }
     
-        form.reset(); // Ora TypeScript sa che 'form' è un HTMLFormElement
+        form.reset(); 
     
         if (moti) {
             
